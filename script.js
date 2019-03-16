@@ -6,7 +6,7 @@ Game Rules:
 
 -But, if the player rolls a 1, all his round scores get lost. After that his round score gets addedd to his GLBAL score.After that, it's thenext players turn.
 
--The first player to reach 100 points to global score wins the game
+-The first player to reach users input final score or the default final score(50) points to global score wins the game
 */
 
 //create a roundscore and score to keep track and keep track of who is playing
@@ -14,14 +14,17 @@ var scores, Roundscores, activePlayer, gamePlaying, dice, last_dice;
 
 init();
 
-//we want to change the dice with a click event
+// want to change the dice with a click event
+// 1. need two a random numbers
+ // 2. Display the the dice image result
+// 3. Check the result of the dice
 document.querySelector('.btn-roll').addEventListener('click', function () {
 
     if(gamePlaying){
-          // 1. we need a random number
+          
         var dice_1 = Math.floor(Math.random() * 6) + 1;
         var dice_2 = Math.floor(Math.random() * 6) + 1;
-        // 2. Display the the dice image result
+     
         document.getElementById('dice-1').style.display = 'block';
         document.getElementById('dice-2').style.display = 'block';
 
@@ -29,7 +32,7 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
         document.getElementById('dice-2').src = 'dice-' + dice_2 + '.png';
 
         dice = dice_1 + dice_2;
-        //3. update the round score only if the rolled number was not 1
+        
         if(last_dice === 6 && dice === 6){ //the current players overall score goes back to zero
           tempAlert("two values 6 rule score restarts", 2000);
           scores[activePlayer] = 0;
@@ -97,7 +100,7 @@ function nextPlayer()
             document.querySelector('.player-0-panel').classList.toggle('active');
             document.querySelector('.player-1-panel').classList.toggle('active');
 
-            //this makes the dice hidden before its the next players turn
+            
             document.getElementById('dice-1').style.display = 'none';
             document.getElementById('dice-2').style.display = 'none';
 
@@ -112,7 +115,6 @@ function init()
     activePlayer = 0;
     gamePlaying = true;
 
-    //how to use DOM for CSS
     document.getElementById('dice-1').style.display = 'none';
     document.getElementById('dice-2').style.display = 'none';
     document.getElementById('current-0').textContent = '0';
